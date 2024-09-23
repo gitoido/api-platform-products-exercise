@@ -77,5 +77,8 @@ export default defineConfig({
       clientPort: 443,
       protocol: "wss",
     },
+    warmup: {
+        clientFiles: ['./src/*']
+    }
   },
 })

@@ -1,5 +1,6 @@
 .idea
 /docker/db/data
+/.fixtures.lock
 
 ###> symfony/framework-bundle ###
 /.env.local

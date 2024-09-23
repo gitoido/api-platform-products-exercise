@@ -17,7 +17,6 @@ log
         {header.Accept}.matches("\\btext/html\\b")
         && !{path}.matches("(?i)(?:^/docs|^/graphql|^/bundles/|^/_profiler|^/_wdt|\\.(?:json|html$|csv$|ya?ml$|xml$))")
     )
-    || !{path}.startsWith("/api")
     || {path} == "/favicon.ico"
     || {path} == "/manifest.json"
     || {path} == "/robots.txt"
