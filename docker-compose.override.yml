@@ -1,0 +1,36 @@
+services:
+  php:
+    volumes:
+      - ./api:/srv/api:rw
+      - ./api/docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.ini
+      - ./api/var:/srv/api/var:rw
+    environment:
+      APP_ENV: dev
+
+  pwa:
+    build:
+      context: ./pwa
+      target: api_platform_pwa_dev
+    volumes:
+      - ./pwa:/usr/src/pwa:rw
+      - /usr/src/pwa/node_modules
+    environment:
+      - NODE_ENV=development
+
+  caddy:
+    volumes:
+      - ./api/docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./api/public:/srv/api/public:ro
+    environment:
+      MERCURE_EXTRA_DIRECTIVES: demo
+
+###> doctrine/doctrine-bundle ###
+  database:
+    ports:
+      - target: 3306
+        published: 3316
+        protocol: tcp
+###< doctrine/doctrine-bundle ###
+
+###> symfony/mercure-bundle ###
+###< symfony/mercure-bundle ###

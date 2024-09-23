@@ -1,0 +1,4 @@
+App\Entity\Product:
+    product{1..100}:
+        article: <ean8()>
+        name: <streetName()>
