@@ -14,3 +14,6 @@ git@github.com:gitoido/api-platform-products-exercise.git
 ```
 
 3. Open project at https://localhost
+
+### Links
+* API Platform documentation is available here: https://localhost/docs
