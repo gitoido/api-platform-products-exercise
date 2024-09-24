@@ -6,9 +6,9 @@
 ARG NODE_VERSION=16
 
 # "common" stage
-FROM node:${NODE_VERSION}-alpine AS api_platform_pwa_common
+FROM node:${NODE_VERSION}-alpine AS api_platform_pwa_dev
 
-RUN npm i -g @vue/cli @vue/cli-service-global
+RUN npm i -g @vue/cli @vue/cli-service-global serve
 
 EXPOSE 3000
 
@@ -16,23 +16,11 @@ WORKDIR /usr/src/pwa
 
 # prevent the reinstallation of node modules at every changes in the source code
 COPY package.json package-lock.json ./
-
 RUN npm install
 
+ENV NODE_ENV production
 COPY . ./
+RUN npm run build
 
-VOLUME /usr/src/pwa/node_modules
 
-
-# "development" stage
-# depends on the "common" stage above
-FROM api_platform_pwa_common AS api_platform_pwa_dev
-
-ENV NODE_ENV development
-
-COPY --from=api_platform_pwa_common /usr/src/pwa/node_modules /usr/src/pwa/node_modules
-
-RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
-RUN chmod +rwx /usr/src/pwa
-
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "serve"]

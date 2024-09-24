@@ -13,9 +13,10 @@ services:
       target: api_platform_pwa_dev
     volumes:
       - ./pwa:/usr/src/pwa:rw
+      - /usr/src/pwa/dist
       - /usr/src/pwa/node_modules
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=prod
 
   caddy:
     volumes:

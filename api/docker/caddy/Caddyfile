@@ -25,6 +25,8 @@ log
     || {path}.startsWith("/node_modules")
     || {path}.startsWith("/__vue-router")
     || {path}.startsWith("/js")
+    || {path}.startsWith("/css")
+    || {path}.startsWith("/fonts")
     `
 
 route {
