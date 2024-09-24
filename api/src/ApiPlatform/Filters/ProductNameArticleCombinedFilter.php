@@ -12,12 +12,12 @@ use Symfony\Component\PropertyInfo\Type;
 final class ProductNameArticleCombinedFilter extends AbstractContextAwareFilter
 {
     protected function filterProperty(
-        string $property,
-        $value,
-        QueryBuilder $queryBuilder,
+        string                      $property,
+                                    $value,
+        QueryBuilder                $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
-        string $resourceClass,
-        string $operationName = null
+        string                      $resourceClass,
+        string                      $operationName = null
     ): void
     {
         if ($resourceClass !== Product::class) {
@@ -28,9 +28,10 @@ final class ProductNameArticleCombinedFilter extends AbstractContextAwareFilter
         }
 
         $parameterName = $queryNameGenerator->generateParameterName($property);
+        $alias = $queryBuilder->getRootAliases()[0];
         $queryBuilder
-            ->andWhere(sprintf('o.name LIKE :%s', $parameterName))
-            ->orWhere(sprintf('o.article LIKE :%s', $parameterName))
+            ->andWhere(sprintf('%s.name LIKE :%s', $alias, $parameterName))
+            ->orWhere(sprintf('%s.article LIKE :%s', $alias, $parameterName))
             ->setParameter($parameterName, '%' . $value . '%');
     }
 
